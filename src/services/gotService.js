@@ -22,7 +22,7 @@ export default class GotService {
         return this.getResource(`/books/${id}/`);
     }
     
-    async getAllCharacters() {
+    getAllCharacters = async () => {
         const res = await this.getResource(`/characters?page=5&pageSize=10`);
         return res.map(this._transformCharacter);
     }
@@ -40,17 +40,21 @@ export default class GotService {
         return this.getResource(`/houses/${id}/`);
     }
 
-    noInfo(str) {
-        return str ? str : "No info";
+    isSet(data) {
+        if (data) {
+            return data
+        } else {
+            return 'no data :('
+        }
     }
 
-    _transformCharacter(char) {
+    _transformCharacter = (char) => {
         return {
-            name: this.noInfo(char.name),
-            gender: this.noInfo(char.gender),
-            born: this.noInfo(char.born),
-            died: this.noInfo(char.died),
-            culture: this.noInfo(char.culture),
+            name: this.isSet(char.name),
+            gender: this.isSet(char.gender),
+            born: this.isSet(char.born),
+            died: this.isSet(char.died), 
+            culture: this.isSet(char.culture),
         }
     }
 
